@@ -1,0 +1,77 @@
+group 'com.dr.plugin.dr_sdk_plugin'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+}
+
+dependencies{
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // Material design
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    /** External dependencies */
+    implementation 'com.google.code.gson:gson:2.8.9'
+    // Room
+    implementation 'androidx.room:room-runtime:2.4.1'
+    annotationProcessor 'androidx.room:room-compiler:2.4.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
+    // Firebase Config
+    // Firebase bom dependency
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    // Declare the dependencies for the Remote Config and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-config'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-core'
+
+    //workmanager
+    implementation "androidx.work:work-runtime:2.7.1"
+
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+    implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
+
+    implementation(name: 'amlibrary', ext: 'aar')
+    implementation(name: 'idmanager-prod-release', ext: 'aar')
+}
