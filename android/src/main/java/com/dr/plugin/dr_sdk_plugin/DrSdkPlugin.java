@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import amazonia.iu.com.amlibrary.client.IUApp;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -45,13 +47,18 @@ public class DrSdkPlugin implements FlutterPlugin, MethodCallHandler {
         IUApp.refreshFCMToken(application);
         break;
       case "invokeFCM":
-        Log.d("TestIU","DrSdkPlugin call invokeFCM()");
+        Log.d("TestIU","DrSdkPlugin Updated call invokeFCM()");
         try{
         IUApp.init(application, drComplianceActivity);
         HashMap<String, Object> hashMap = (HashMap<String, Object>) call.arguments;
         HashMap<String, Object> finalMap=  (HashMap<String, Object>)hashMap.get("remoteMessage");
         JSONObject json =new JSONObject(finalMap);
-        IUApp.handleFCM(application, json);
+          ExecutorService executorService= Executors.newSingleThreadExecutor();
+          executorService.submit(()->{
+            IUApp.handleFCMMessage(application, json);
+          });
+          executorService.shutdown();
+
         }catch (Exception e){
           e.printStackTrace();
         }
