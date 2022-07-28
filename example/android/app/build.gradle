@@ -99,6 +99,8 @@ dependencies{
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
     implementation 'com.google.android.gms:play-services-location:19.0.1'
 
+
+
     implementation(name: 'amlibrary', ext: 'aar')
     implementation(name: 'idmanager-prod-release', ext: 'aar')
 }
