@@ -50,7 +50,9 @@ public class DrSdkPlugin implements FlutterPlugin, MethodCallHandler {
         Log.d("TestIU","DrSdkPlugin Updated call invokeFCM()");
         try{
         IUApp.init(application, drComplianceActivity);
+        @SuppressWarnings("unchecked")
         HashMap<String, Object> hashMap = (HashMap<String, Object>) call.arguments;
+        @SuppressWarnings("unchecked")
         HashMap<String, Object> finalMap=  (HashMap<String, Object>)hashMap.get("remoteMessage");
         JSONObject json =new JSONObject(finalMap);
           ExecutorService executorService= Executors.newSingleThreadExecutor();
