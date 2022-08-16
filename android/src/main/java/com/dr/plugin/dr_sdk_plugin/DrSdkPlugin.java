@@ -33,23 +33,19 @@ public class DrSdkPlugin implements FlutterPlugin, MethodCallHandler {
   public static void init(Application application,Class<?> drComplianceActivity) {
     DrSdkPlugin.application = application;
     DrSdkPlugin.drComplianceActivity=drComplianceActivity;
+    IUApp.init(application, drComplianceActivity);
   }
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
 
     switch (call.method){
-
-      case "getPlatformVersion":
-        result.success("Android " + android.os.Build.VERSION.RELEASE);
-        break;
       case "refreshToken":
         IUApp.refreshFCMToken(application);
         break;
       case "invokeFCM":
         Log.d("TestIU","DrSdkPlugin Updated call invokeFCM()");
         try{
-        IUApp.init(application, drComplianceActivity);
         @SuppressWarnings("unchecked")
         HashMap<String, Object> hashMap = (HashMap<String, Object>) call.arguments;
         @SuppressWarnings("unchecked")
@@ -69,11 +65,11 @@ public class DrSdkPlugin implements FlutterPlugin, MethodCallHandler {
         }
         break;
       case "launch":
-        Log.d("TestIU","DrSdkPlugin call init()");
-        IUApp.init(application, drComplianceActivity);
+        IUApp.launch(application);
         break;
       case "init":
-        IUApp.launch(application);
+        Log.d("TestIU","DrSdkPlugin call init()");
+        IUApp.init(application, drComplianceActivity);
         break;
       default:
         result.notImplemented();
